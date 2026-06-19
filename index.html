@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Syndicate | Product & Growth Advisory</title>
+  <meta name="description" content="Product strategy and growth leadership for startups, scale-ups, and enterprises. Joshua Stubbs and Wayne van Niekerk bring hands-on experience across fintech, Web3, ecommerce, logistics, and more." />
+  <style>
+    /* ==========================================================
+       THE SYNDICATE — Design tokens from HYER design system
+       ========================================================== */
+
+    @font-face {
+      font-family: 'HelveticaNow';
+      src: local('HelveticaNowDisplay'), local('Helvetica Neue'), local('Helvetica');
+      font-display: swap;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      /* Colors — HYER palette */
+      --color-primary: #000d10;
+      --color-dark-bg: #0f0f1c;
+      --color-dark-surface: #151623;
+      --color-white: #fff;
+      --color-off-white: #f5f5f5;
+      --color-light-blue: #d3e3f2;
+      --color-gray-500: #8e8e95;
+      --color-gray-300: #cacaca;
+      --color-success: #64be6d;
+      --color-error: #db6363;
+      --color-accent: #bc7155;
+
+      /* Typography */
+      --font-primary: 'HelveticaNow', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-body: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+      /* Spacing — 18px base */
+      --space-xs: 0.278rem;   /* 5px */
+      --space-sm: 0.556rem;   /* 10px */
+      --space-md: 0.778rem;   /* 14px */
+      --space-base: 1rem;     /* 18px */
+      --space-lg: 1.333rem;   /* 24px */
+      --space-xl: 1.778rem;   /* 32px */
+      --space-2xl: 2.222rem;  /* 40px */
+      --space-3xl: 2.778rem;  /* 50px */
+      --space-4xl: 3.611rem;  /* 65px */
+
+      /* Radii */
+      --radius-sm: 5px;
+      --radius-md: 8px;
+      --radius-pill: 55.556rem;
+
+      /* Shadows */
+      --shadow-subtle: 0 0 1.111rem rgba(0,0,0,.02);
+      --shadow-medium: 0 1px 8px rgba(0,0,0,.12);
+      --shadow-heavy: 1px 2px 10px rgba(0,0,0,.35);
+
+      /* Transitions — HYER easing */
+      --ease-standard: cubic-bezier(.4, 0, .2, 1);
+      --transition-fast: 150ms var(--ease-standard);
+      --transition-base: 300ms var(--ease-standard);
+      --transition-slow: 500ms var(--ease-standard);
+
+      /* Z-index */
+      --z-nav: 300;
+    }
+
+    html {
+      font-size: 18px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--color-primary);
+      background: var(--color-white);
+      line-height: 110%;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    ::selection {
+      background-color: rgba(0,13,16,.8);
+      color: var(--color-white);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    img { max-width: 100%; display: block; }
+
+    /* ==========================================================
+       LAYOUT
+       ========================================================== */
+
+    .container {
+      padding: 0 4.1667%;
+      max-width: 120em;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 64em) {
+      .container { padding: 0 9.765625vw; }
+    }
+
+    /* ==========================================================
+       NAVIGATION
+       ========================================================== */
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: var(--z-nav);
+      padding: var(--space-base) 0;
+      transition: background var(--transition-base), box-shadow var(--transition-base);
+    }
+
+    .nav.scrolled {
+      background: hsla(0, 0%, 100%, .95);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--shadow-medium);
+    }
+
+    .nav .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-brand {
+      font-family: var(--font-primary);
+      font-size: 1.222rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: none;
+      list-style: none;
+      gap: var(--space-xl);
+      align-items: center;
+    }
+
+    @media (min-width: 64em) {
+      .nav-links { display: flex; }
+    }
+
+    .nav-links a {
+      font-size: 0.778rem;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+    }
+
+    .nav-links a:hover { color: var(--color-gray-500); }
+
+    .nav-cta {
+      font-size: 0.778rem;
+      font-weight: 700;
+      background: var(--color-primary);
+      color: var(--color-white) !important;
+      padding: var(--space-sm) var(--space-lg);
+      border-radius: var(--radius-pill);
+      transition: background var(--transition-base), transform var(--transition-base);
+    }
+
+    .nav-cta:hover {
+      background: var(--color-dark-surface);
+      color: var(--color-white);
+      transform: scale(1.02);
+    }
+
+    .mobile-menu-btn {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: var(--space-xs);
+    }
+
+    .mobile-menu-btn span {
+      width: 24px;
+      height: 2px;
+      background: var(--color-primary);
+      transition: transform var(--transition-base);
+    }
+
+    @media (min-width: 64em) {
+      .mobile-menu-btn { display: none; }
+    }
+
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: var(--color-white);
+      z-index: calc(var(--z-nav) + 1);
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-2xl);
+    }
+
+    .mobile-nav.open { display: flex; }
+
+    .mobile-nav a {
+      font-family: var(--font-primary);
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .mobile-nav-close {
+      position: absolute;
+      top: var(--space-base);
+      right: 4.1667%;
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    /* ==========================================================
+       HERO
+       ========================================================== */
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: var(--space-4xl);
+      padding-top: 6rem;
+      background: var(--color-primary);
+      color: var(--color-white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -20%;
+      width: 70vw;
+      height: 70vw;
+      background: radial-gradient(circle, rgba(211,227,242,.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      font-family: var(--font-primary);
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1.03;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-xl);
+    }
+
+    @media (min-width: 64em) {
+      .hero h1 {
+        font-size: 4.39vw;
+      }
+    }
+
+    @media (min-width: 101.25em) {
+      .hero h1 { font-size: 4.17vw; }
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      line-height: 140%;
+      color: hsla(0, 0%, 100%, .7);
+      max-width: 36rem;
+      margin-bottom: var(--space-2xl);
+    }
+
+    @media (min-width: 64em) {
+      .hero-subtitle { font-size: 1.37vw; }
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-size: 0.889rem;
+      font-weight: 700;
+      background: var(--color-white);
+      color: var(--color-primary);
+      padding: var(--space-md) var(--space-xl);
+      border-radius: var(--radius-pill);
+      transition: transform var(--transition-base), box-shadow var(--transition-base);
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-heavy);
+      color: var(--color-primary);
+    }
+
+    .hero-cta svg {
+      transition: transform var(--transition-base);
+    }
+
+    .hero-cta:hover svg {
+      transform: translateX(4px);
+    }
+
+    /* ==========================================================
+       SECTIONS — shared
+       ========================================================== */
+
+    section {
+      padding: var(--space-4xl) 0;
+    }
+
+    @media (min-width: 64em) {
+      section { padding: 7.285vw 0; }
+    }
+
+    .section-label {
+      font-size: 0.778rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      color: var(--color-gray-500);
+      margin-bottom: var(--space-base);
+    }
+
+    .section-title {
+      font-family: var(--font-primary);
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.04;
+      letter-spacing: -0.01em;
+      margin-bottom: var(--space-2xl);
+    }
+
+    @media (min-width: 64em) {
+      .section-title { font-size: 3.61vw; }
+    }
+
+    /* ==========================================================
+       ABOUT
+       ========================================================== */
+
+    .about {
+      background: var(--color-off-white);
+    }
+
+    .about-grid {
+      display: grid;
+      gap: var(--space-2xl);
+    }
+
+    @media (min-width: 64em) {
+      .about-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 4.1667vw;
+        align-items: start;
+      }
+    }
+
+    .about-text p {
+      font-size: 1rem;
+      line-height: 140%;
+      margin-bottom: var(--space-lg);
+      color: var(--color-primary);
+    }
+
+    @media (min-width: 64em) {
+      .about-text p { font-size: 1.37vw; }
+    }
+
+    .about-text p:last-child { margin-bottom: 0; }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg);
+    }
+
+    .stat {
+      padding: var(--space-lg);
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .stat-number {
+      font-family: var(--font-primary);
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: var(--space-xs);
+    }
+
+    @media (min-width: 64em) {
+      .stat-number { font-size: 2.54vw; }
+    }
+
+    .stat-label {
+      font-size: 0.778rem;
+      color: var(--color-gray-500);
+      line-height: 120%;
+    }
+
+    /* ==========================================================
+       SERVICES
+       ========================================================== */
+
+    .services-grid {
+      display: grid;
+      gap: var(--space-lg);
+    }
+
+    @media (min-width: 64em) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-xl);
+      }
+    }
+
+    .service-card {
+      background: var(--color-white);
+      border: 1px solid rgba(0,13,16,.06);
+      border-radius: var(--radius-md);
+      padding: var(--space-2xl);
+      transition: box-shadow var(--transition-base), transform var(--transition-base);
+    }
+
+    .service-card:hover {
+      box-shadow: var(--shadow-medium);
+      transform: translateY(-3px);
+    }
+
+    .service-card-number {
+      font-family: var(--font-primary);
+      font-size: 0.778rem;
+      font-weight: 700;
+      color: var(--color-gray-300);
+      margin-bottom: var(--space-xl);
+    }
+
+    .service-card h3 {
+      font-family: var(--font-primary);
+      font-size: 1.556rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.03;
+      margin-bottom: var(--space-base);
+    }
+
+    @media (min-width: 64em) {
+      .service-card h3 { font-size: 2.05vw; }
+    }
+
+    .service-card p {
+      font-size: 0.889rem;
+      line-height: 140%;
+      color: var(--color-gray-500);
+    }
+
+    @media (min-width: 64em) {
+      .service-card p { font-size: 1.07vw; }
+    }
+
+    /* ==========================================================
+       EXPERIENCE / LOGOS
+       ========================================================== */
+
+    .experience {
+      background: var(--color-dark-bg);
+      color: var(--color-white);
+    }
+
+    .experience .section-label {
+      color: hsla(0, 0%, 100%, .5);
+    }
+
+    .experience .section-title {
+      color: var(--color-white);
+    }
+
+    .logo-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-lg);
+    }
+
+    @media (min-width: 40em) {
+      .logo-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (min-width: 64em) {
+      .logo-grid { grid-template-columns: repeat(3, 1fr); gap: var(--space-xl); }
+    }
+
+    .logo-card {
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius-md);
+      padding: var(--space-xl) var(--space-lg);
+      transition: border-color var(--transition-base), background var(--transition-base);
+    }
+
+    .logo-card:hover {
+      border-color: rgba(255,255,255,.2);
+      background: rgba(255,255,255,.03);
+    }
+
+    .logo-card-name {
+      font-family: var(--font-primary);
+      font-size: 1.222rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: var(--space-xs);
+    }
+
+    .logo-card-industry {
+      font-size: 0.778rem;
+      color: hsla(0, 0%, 100%, .5);
+      letter-spacing: 0.01em;
+    }
+
+    /* ==========================================================
+       INDUSTRIES
+       ========================================================== */
+
+    .industries-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .industry-tag {
+      font-size: 0.889rem;
+      font-weight: 400;
+      padding: var(--space-sm) var(--space-lg);
+      border: 1px solid rgba(0,13,16,.12);
+      border-radius: var(--radius-pill);
+      transition: background var(--transition-base), border-color var(--transition-base);
+    }
+
+    .industry-tag:hover {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-white);
+    }
+
+    /* ==========================================================
+       TEAM
+       ========================================================== */
+
+    .team-grid {
+      display: grid;
+      gap: var(--space-xl);
+    }
+
+    @media (min-width: 64em) {
+      .team-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 4.1667vw;
+      }
+    }
+
+    .team-card {
+      background: var(--color-white);
+      border: 1px solid rgba(0,13,16,.06);
+      border-radius: var(--radius-md);
+      padding: var(--space-2xl);
+      transition: box-shadow var(--transition-base);
+    }
+
+    .team-card:hover {
+      box-shadow: var(--shadow-medium);
+    }
+
+    .team-card-header {
+      display: flex;
+      align-items: center;
+      gap: var(--space-base);
+      margin-bottom: var(--space-xl);
+    }
+
+    .team-avatar {
+      width: 3.611rem;
+      height: 3.611rem;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: var(--color-white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-primary);
+      font-size: 1.222rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .team-name {
+      font-family: var(--font-primary);
+      font-size: 1.222rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+
+    .team-role {
+      font-size: 0.778rem;
+      color: var(--color-gray-500);
+      letter-spacing: 0.01em;
+      margin-top: 2px;
+    }
+
+    .team-bio {
+      font-size: 0.889rem;
+      line-height: 150%;
+      color: var(--color-gray-500);
+      margin-bottom: var(--space-lg);
+    }
+
+    .team-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-xs);
+    }
+
+    .team-tag {
+      font-size: 0.667rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      padding: 4px var(--space-sm);
+      border: 1px solid rgba(0,13,16,.1);
+      border-radius: var(--radius-pill);
+      color: var(--color-gray-500);
+    }
+
+    .team-links {
+      display: flex;
+      gap: var(--space-base);
+      margin-top: var(--space-lg);
+      padding-top: var(--space-lg);
+      border-top: 1px solid rgba(0,13,16,.06);
+    }
+
+    .team-links a {
+      font-size: 0.778rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      transition: color var(--transition-fast);
+    }
+
+    .team-links a:hover {
+      color: var(--color-gray-500);
+    }
+
+    /* ==========================================================
+       HOW WE WORK
+       ========================================================== */
+
+    .process-grid {
+      display: grid;
+      gap: var(--space-2xl);
+    }
+
+    @media (min-width: 64em) {
+      .process-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4.1667vw;
+      }
+    }
+
+    .process-step {
+      position: relative;
+    }
+
+    .process-step-number {
+      font-family: var(--font-primary);
+      font-size: 3.611rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      color: var(--color-off-white);
+      margin-bottom: var(--space-base);
+    }
+
+    @media (min-width: 64em) {
+      .process-step-number { font-size: 4.39vw; }
+    }
+
+    .process-step h3 {
+      font-family: var(--font-primary);
+      font-size: 1.222rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: var(--space-sm);
+    }
+
+    .process-step p {
+      font-size: 0.889rem;
+      line-height: 140%;
+      color: var(--color-gray-500);
+    }
+
+    /* ==========================================================
+       WHY US
+       ========================================================== */
+
+    .why-us {
+      background: var(--color-primary);
+      color: var(--color-white);
+    }
+
+    .why-us .section-label {
+      color: hsla(0, 0%, 100%, .5);
+    }
+
+    .why-us .section-title {
+      color: var(--color-white);
+    }
+
+    .why-grid {
+      display: grid;
+      gap: var(--space-2xl);
+      margin-bottom: var(--space-2xl);
+    }
+
+    @media (min-width: 64em) {
+      .why-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 4.1667vw;
+        align-items: start;
+      }
+    }
+
+    .why-text p {
+      font-size: 1rem;
+      line-height: 150%;
+      color: hsla(0, 0%, 100%, .7);
+      margin-bottom: var(--space-lg);
+    }
+
+    @media (min-width: 64em) {
+      .why-text p { font-size: 1.37vw; }
+    }
+
+    .why-text p:last-child { margin-bottom: 0; }
+
+    .pricing-bar {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: var(--space-xl);
+      align-items: center;
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: var(--radius-md);
+      padding: var(--space-2xl);
+      margin-top: var(--space-2xl);
+    }
+
+    @media (max-width: 40em) {
+      .pricing-bar {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+        text-align: center;
+      }
+    }
+
+    .pricing-divider {
+      width: 1px;
+      height: 100%;
+      background: rgba(255,255,255,.12);
+    }
+
+    @media (max-width: 40em) {
+      .pricing-divider {
+        width: 100%;
+        height: 1px;
+      }
+    }
+
+    .pricing-label {
+      font-size: 0.778rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      color: hsla(0, 0%, 100%, .5);
+      margin-bottom: var(--space-xs);
+    }
+
+    .pricing-value {
+      font-family: var(--font-primary);
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: var(--space-xs);
+    }
+
+    @media (min-width: 64em) {
+      .pricing-value { font-size: 2.54vw; }
+    }
+
+    .pricing-value span {
+      font-size: 0.889rem;
+      font-weight: 400;
+      color: hsla(0, 0%, 100%, .5);
+    }
+
+    .pricing-note {
+      font-size: 0.778rem;
+      color: hsla(0, 0%, 100%, .5);
+      line-height: 130%;
+    }
+
+    /* ==========================================================
+       CTA BIG
+       ========================================================== */
+
+    .cta-big {
+      background: var(--color-primary);
+      color: var(--color-white);
+      text-align: center;
+      padding: var(--space-4xl) 0;
+    }
+
+    @media (min-width: 64em) {
+      .cta-big { padding: 9.77vw 0; }
+    }
+
+    .cta-big-title {
+      font-family: var(--font-primary);
+      font-size: 2.778rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.03;
+      margin-bottom: var(--space-xl);
+    }
+
+    @media (min-width: 64em) {
+      .cta-big-title { font-size: 9.08vw; line-height: 91.5%; }
+    }
+
+    .cta-big-subtitle {
+      font-size: 1rem;
+      color: hsla(0, 0%, 100%, .5);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .cta-big .hero-cta {
+      font-size: 1rem;
+      padding: var(--space-base) var(--space-2xl);
+    }
+
+    /* ==========================================================
+       CONTACT FORM
+       ========================================================== */
+
+    .contact {
+      background: var(--color-off-white);
+    }
+
+    .contact-grid {
+      display: grid;
+      gap: var(--space-2xl);
+    }
+
+    @media (min-width: 64em) {
+      .contact-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 4.1667vw;
+      }
+    }
+
+    .contact-info p {
+      font-size: 1rem;
+      line-height: 140%;
+      color: var(--color-gray-500);
+      margin-bottom: var(--space-lg);
+    }
+
+    @media (min-width: 64em) {
+      .contact-info p { font-size: 1.37vw; }
+    }
+
+    .contact-detail {
+      font-size: 0.889rem;
+      margin-bottom: var(--space-sm);
+    }
+
+    .contact-detail strong {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .form-group {
+      margin-bottom: var(--space-lg);
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.778rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      color: var(--color-gray-500);
+      margin-bottom: var(--space-xs);
+    }
+
+    .form-input,
+    .form-textarea {
+      display: block;
+      width: 100%;
+      font-family: inherit;
+      font-size: 1rem;
+      padding: var(--space-md) 0;
+      border: none;
+      border-bottom: 1px solid var(--color-gray-300);
+      background: transparent;
+      color: var(--color-primary);
+      transition: border-color 200ms;
+      outline: none;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      border-bottom-color: var(--color-primary);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 6rem;
+    }
+
+    .form-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-sm);
+      font-family: inherit;
+      font-size: 0.889rem;
+      font-weight: 700;
+      background: var(--color-primary);
+      color: var(--color-white);
+      padding: var(--space-md) var(--space-xl);
+      border: none;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: background var(--transition-base), transform var(--transition-base);
+    }
+
+    .form-submit:hover {
+      background: var(--color-dark-surface);
+      transform: scale(1.02);
+    }
+
+    .form-success {
+      display: none;
+      padding: var(--space-lg);
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      border-left: 3px solid var(--color-success);
+    }
+
+    .form-success.visible { display: block; }
+
+    /* ==========================================================
+       FOOTER
+       ========================================================== */
+
+    .footer {
+      background: var(--color-primary);
+      color: var(--color-white);
+      padding: var(--space-2xl) 0;
+    }
+
+    .footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-base);
+    }
+
+    .footer-brand {
+      font-family: var(--font-primary);
+      font-size: 0.889rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+
+    .footer-copy {
+      font-size: 0.778rem;
+      color: var(--color-gray-500);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: var(--space-lg);
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 0.778rem;
+      color: var(--color-gray-500);
+      transition: color var(--transition-fast);
+    }
+
+    .footer-links a:hover { color: var(--color-white); }
+
+    /* ==========================================================
+       ANIMATIONS — fade in on scroll
+       ========================================================== */
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 600ms var(--ease-standard), transform 600ms var(--ease-standard);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="container">
+      <a href="#" class="nav-brand">The Syndicate</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#process">How We Work</a></li>
+        <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
+      </ul>
+      <button class="mobile-menu-btn" onclick="document.getElementById('mobileNav').classList.add('open')" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- MOBILE NAV -->
+  <div class="mobile-nav" id="mobileNav">
+    <button class="mobile-nav-close" onclick="this.parentElement.classList.remove('open')" aria-label="Close menu">&times;</button>
+    <a href="#about" onclick="this.parentElement.classList.remove('open')">About</a>
+    <a href="#services" onclick="this.parentElement.classList.remove('open')">Services</a>
+    <a href="#experience" onclick="this.parentElement.classList.remove('open')">Experience</a>
+    <a href="#team" onclick="this.parentElement.classList.remove('open')">Team</a>
+    <a href="#process" onclick="this.parentElement.classList.remove('open')">How We Work</a>
+    <a href="#contact" onclick="this.parentElement.classList.remove('open')">Let's Talk</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-content">
+      <h1>We build and grow<br>products that matter.</h1>
+      <p class="hero-subtitle">Product strategy meets growth execution. Two operators who've shipped across fintech, Web3, ecommerce, logistics, and more. Now advising startups and scale-ups together. No theory. No fluff. Just what works.</p>
+      <a href="#contact" class="hero-cta">
+        Start a conversation
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text fade-in">
+          <p class="section-label">About</p>
+          <p>The Syndicate is two operators who got tired of watching companies pay for advice from people who've never shipped anything. We've built products and scaled growth across startups, scale-ups, and Fortune 500s. We still do it full-time.</p>
+          <p>Joshua runs product. Wayne drives growth. Between us we've worked across fintech, Web3, ecommerce, logistics, proptech, ed-tech, and private equity on three continents. We advise together because great products need both: the thing that works, and the engine that makes people find it.</p>
+          <p>We don't give advice we haven't lived. If we haven't done it, we'll tell you.</p>
+        </div>
+        <div class="about-stats fade-in">
+          <div class="stat">
+            <div class="stat-number">10+</div>
+            <div class="stat-label">Industries shipped in</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">18+</div>
+            <div class="stat-label">Combined years</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">3</div>
+            <div class="stat-label">Continents worked across</div>
+          </div>
+          <div class="stat">
+            <div class="stat-number">$9M+</div>
+            <div class="stat-label">Deals closed</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="container">
+      <p class="section-label fade-in">Services</p>
+      <h2 class="section-title fade-in">What we can do for you</h2>
+      <div class="services-grid">
+        <div class="service-card fade-in">
+          <div class="service-card-number">01</div>
+          <h3>Product Strategy</h3>
+          <p>Defining what to build, why, and in what order. Vision, roadmaps, go-to-market — the foundations that stop you burning cash on the wrong things.</p>
+        </div>
+        <div class="service-card fade-in">
+          <div class="service-card-number">02</div>
+          <h3>Growth & GTM</h3>
+          <p>Positioning, messaging, partnerships, and ecosystem development. We build the engine that takes your product from built to known, and from known to dominant.</p>
+        </div>
+        <div class="service-card fade-in">
+          <div class="service-card-number">03</div>
+          <h3>Fractional Leadership</h3>
+          <p>Embedded product or growth leadership without the full-time cost. We join your team, run the function, and build the discipline you need to scale.</p>
+        </div>
+        <div class="service-card fade-in">
+          <div class="service-card-number">04</div>
+          <h3>Product & Growth Audits</h3>
+          <p>A thorough review of your product, growth loops, and team. You get a clear picture of what's working, what's broken, and exactly what to do about it.</p>
+        </div>
+        <div class="service-card fade-in">
+          <div class="service-card-number">05</div>
+          <h3>Coaching & Mentorship</h3>
+          <p>Upskilling founders, PMs, and growth teams. We help your people think better about problems, make sharper decisions, and ship with confidence.</p>
+        </div>
+        <div class="service-card fade-in">
+          <div class="service-card-number">06</div>
+          <h3>Ecosystem & Partnerships</h3>
+          <p>Building strategic partnerships, developer ecosystems, and BD pipelines. From closing enterprise deals to scaling community-driven growth.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="experience" id="experience">
+    <div class="container">
+      <p class="section-label fade-in">Experience</p>
+      <h2 class="section-title fade-in">Companies we've worked with</h2>
+      <div class="logo-grid">
+        <div class="logo-card fade-in">
+          <div class="logo-card-name">Silhouette Exchange</div>
+          <div class="logo-card-industry">Web3 & DeFi</div>
+        </div>
+        <div class="logo-card fade-in">
+          <div class="logo-card-name">Fuel Labs</div>
+          <div class="logo-card-industry">Blockchain Infrastructure</div>
+        </div>
+        <div class="logo-card fade-in">
+          <div class="logo-card-name">Aviv</div>
+          <div class="logo-card-industry">Property</div>
+        </div>
+        <div class="logo-card fade-in">
+          <div class="logo-card-name">Wayflyer</div>
+          <div class="logo-card-industry">Ecommerce & Lending</div>
+        </div>
+        <div class="logo-card fade-in">
+          <div class="logo-card-name">Back Market</div>
+          <div class="logo-card-industry">Recycled Tech & Ecommerce</div>
+        </div>
+        <div class="logo-card fade-in">
+          <div class="logo-card-name">Linum Labs</div>
+          <div class="logo-card-industry">Web3 & Enterprise</div>
+        </div>
+        <div class="logo-card fade-in">
+          <div class="logo-card-name">Sonata One</div>
+          <div class="logo-card-industry">Private Equity, Tax & KYC</div>
+        </div>
+        <div class="logo-card fade-in">
+          <div class="logo-card-name">Smart Kitchen Co</div>
+          <div class="logo-card-industry">Dark Kitchens & Logistics</div>
+        </div>
+        <div class="logo-card fade-in">
+          <div class="logo-card-name">Microverse</div>
+          <div class="logo-card-industry">Ed-Tech</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRIES -->
+  <section id="industries">
+    <div class="container">
+      <p class="section-label fade-in">Industries</p>
+      <h2 class="section-title fade-in">Where we've operated</h2>
+      <div class="industries-list fade-in">
+        <span class="industry-tag">Fintech</span>
+        <span class="industry-tag">Web3 & DeFi</span>
+        <span class="industry-tag">Ecommerce</span>
+        <span class="industry-tag">Logistics</span>
+        <span class="industry-tag">Proptech</span>
+        <span class="industry-tag">Banking</span>
+        <span class="industry-tag">Retail</span>
+        <span class="industry-tag">Private Equity</span>
+        <span class="industry-tag">Ed-Tech</span>
+        <span class="industry-tag">KYC & Compliance</span>
+        <span class="industry-tag">Blockchain Infrastructure</span>
+        <span class="industry-tag">Food & Dark Kitchens</span>
+        <span class="industry-tag">Circular Economy</span>
+        <span class="industry-tag">SaaS</span>
+        <span class="industry-tag">AI & Developer Tools</span>
+        <span class="industry-tag">Gaming & NFTs</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section id="team">
+    <div class="container">
+      <p class="section-label fade-in">The Team</p>
+      <h2 class="section-title fade-in">Two operators. Full stack advisory.</h2>
+      <div class="team-grid">
+        <div class="team-card fade-in">
+          <div class="team-card-header">
+            <div class="team-avatar">JS</div>
+            <div>
+              <div class="team-name">Joshua Stubbs</div>
+              <div class="team-role">Product</div>
+            </div>
+          </div>
+          <p class="team-bio">Head of Product at a fintech in Central Africa. Previously shipped across Fortune 500 retailers, European banks, and high-growth startups. First product hire at multiple companies, also embedded in orgs with thousands of engineers. Builds, breaks, fixes, and scales. Won't advise on anything he hasn't done himself.</p>
+          <div class="team-tags">
+            <span class="team-tag">Product Strategy</span>
+            <span class="team-tag">Roadmaps</span>
+            <span class="team-tag">Product Ops</span>
+            <span class="team-tag">Team Building</span>
+            <span class="team-tag">KYC & Compliance</span>
+            <span class="team-tag">System Rebuilds</span>
+          </div>
+          <div class="team-links">
+            <a href="https://www.linkedin.com/in/" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+        <div class="team-card fade-in">
+          <div class="team-card-header">
+            <div class="team-avatar">WV</div>
+            <div>
+              <div class="team-name">Wayne van Niekerk</div>
+              <div class="team-role">Growth</div>
+            </div>
+          </div>
+          <p class="team-bio">Head of Growth at Silhouette Exchange on Hyperliquid. Previously Head of Ecosystem at Fuel Labs, where he grew the developer ecosystem to 60+ mainnet projects. 8+ years in Web3, closing deals like a $9M seed round at $50M valuation, staking 100K HYPE for Platinum tier access, and scaling teams from 20 to 50. Ships products with AI daily.</p>
+          <div class="team-tags">
+            <span class="team-tag">GTM Strategy</span>
+            <span class="team-tag">Ecosystem Dev</span>
+            <span class="team-tag">Partnerships</span>
+            <span class="team-tag">Token Launches</span>
+            <span class="team-tag">Community</span>
+            <span class="team-tag">AI Development</span>
+          </div>
+          <div class="team-links">
+            <a href="https://www.linkedin.com/in/waynevn" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://x.com/waynesworldza" target="_blank" rel="noopener">X / Twitter</a>
+            <a href="https://waynevn.xyz" target="_blank" rel="noopener">Website</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW WE WORK -->
+  <section id="process" style="background: var(--color-off-white);">
+    <div class="container">
+      <p class="section-label fade-in">How We Work</p>
+      <h2 class="section-title fade-in">No mystery. No jargon.</h2>
+      <div class="process-grid">
+        <div class="process-step fade-in">
+          <div class="process-step-number">01</div>
+          <h3>We talk</h3>
+          <p>A short call to understand your business, your product, and what's keeping you up at night. No pitch deck required.</p>
+        </div>
+        <div class="process-step fade-in">
+          <div class="process-step-number">02</div>
+          <h3>We dig in</h3>
+          <p>We get our hands dirty. We review your product, talk to your team, and look at the data. We form a real opinion, not a templated one.</p>
+        </div>
+        <div class="process-step fade-in">
+          <div class="process-step-number">03</div>
+          <h3>We ship</h3>
+          <p>Whether it's a strategy, a coaching engagement, or embedded leadership, we move. We're not here to write reports that collect dust.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="why-us" id="why">
+    <div class="container">
+      <div class="why-grid">
+        <div class="fade-in">
+          <p class="section-label">Why The Syndicate</p>
+          <h2 class="section-title">We're not your full-time hires.<br>That's the point.</h2>
+        </div>
+        <div class="why-text fade-in">
+          <p>We love what we do full-time. What we do every day makes us sharper advisors. We're in the trenches right now, shipping products and scaling growth at real companies. That's not a side note, it's the whole value proposition. You get operators who are current, not consultants who peaked three years ago.</p>
+          <p>Sometimes it takes someone outside the business to help you make the hard strategic decisions that will actually grow your company. We've been on both sides of that table. Operator to operator, we'll be honest about whether we can help. If we can, we'll set a cadence that works.</p>
+        </div>
+      </div>
+      <div class="pricing-bar fade-in">
+        <div class="pricing-item">
+          <div class="pricing-label">First session</div>
+          <div class="pricing-value">Free</div>
+          <div class="pricing-note">No commitment. Let's see if there's a fit.</div>
+        </div>
+        <div class="pricing-divider"></div>
+        <div class="pricing-item">
+          <div class="pricing-label">Advisory rate</div>
+          <div class="pricing-value">R1,450<span>/hr</span></div>
+          <div class="pricing-note">Flexible cadence. Weekly, fortnightly, or as-needed.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BIG -->
+  <section class="cta-big">
+    <div class="container">
+      <h2 class="cta-big-title fade-in">Let's build<br>something real.</h2>
+      <p class="cta-big-subtitle fade-in">Book your free first session. Operator to operator.</p>
+      <a href="#contact" class="hero-cta fade-in">
+        Get in touch
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-info fade-in">
+          <p class="section-label">Contact</p>
+          <h2 class="section-title">Start a conversation</h2>
+          <p>Whether you need a sounding board for a week or product and growth leadership for six months, reach out and let's figure out what makes sense.</p>
+          <div class="contact-detail">
+            <strong>Based in</strong>
+            South Africa & Central Africa
+          </div>
+          <div class="contact-detail">
+            <strong>Working with</strong>
+            Clients worldwide, remotely
+          </div>
+        </div>
+        <div class="fade-in">
+          <form id="contactForm" onsubmit="handleSubmit(event)">
+            <div class="form-group">
+              <label class="form-label" for="name">Name</label>
+              <input class="form-input" type="text" id="name" name="name" required autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="email">Email</label>
+              <input class="form-input" type="email" id="email" name="email" required autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="company">Company</label>
+              <input class="form-input" type="text" id="company" name="company" autocomplete="organization" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="message">What do you need help with?</label>
+              <textarea class="form-textarea" id="message" name="message" required></textarea>
+            </div>
+            <button type="submit" class="form-submit">
+              Send message
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M4 10h12m0 0l-4-4m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </form>
+          <div class="form-success" id="formSuccess">
+            <strong>Message sent.</strong> I'll get back to you within 24 hours.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-brand">The Syndicate</div>
+      <div class="footer-copy">&copy; 2026 The Syndicate. All rights reserved.</div>
+      <ul class="footer-links">
+        <li><a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="mailto:hello@thesyndicate.co" target="_blank">Email</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }});
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Contact form
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('formSuccess').classList.add('visible');
+    }
+  </script>
+
+</body>
+</html>
