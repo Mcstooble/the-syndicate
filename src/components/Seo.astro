@@ -1,0 +1,14 @@
+---
+import { site } from "../content/site.ts";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const pageTitle = title ?? site.name;
+const metaDescription = description ?? site.tagline;
+---
+<title>{pageTitle}</title>
+<meta name="description" content={metaDescription} />
