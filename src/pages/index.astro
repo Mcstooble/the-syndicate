@@ -1,9 +1,11 @@
 ---
 import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
 import { site } from "../content/site.ts";
 ---
 
 <Base title={site.name} description={site.tagline}>
+  <Nav />
   <main class="mx-auto max-w-content px-6 py-24">
     <h1 class="text-4xl text-ink">{site.name}</h1>
     <p class="mt-4 text-mist">Scaffold ready.</p>

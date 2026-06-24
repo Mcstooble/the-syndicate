@@ -1,0 +1,12 @@
+---
+import { site } from "../content/site.ts";
+---
+<header class="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-6 py-4 text-canvas mix-blend-difference">
+  <a href="#hero" class="font-display text-lg font-semibold">Prologue Partners</a>
+  <nav class="flex gap-6 text-sm" data-nav>
+    {site.nav.map((n) => (
+      <a href={n.href} data-link={n.href} class="opacity-80 transition-opacity hover:opacity-100">{n.label}</a>
+    ))}
+  </nav>
+</header>
+<script src="../scripts/nav.ts"></script>
