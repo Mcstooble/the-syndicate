@@ -54,12 +54,7 @@ Direction: **cinematic impact with editorial restraint** ("C with a touch of A")
 - Left/bottom-weighted scrim gradient so the headline stays legible.
 - Crispness safeguards: high source resolution, high bitrate (avoid Snowball's softness), minimal/zero upscale-stretch, optional fine grain for a filmic finish.
 
-**Interactivity (all four in scope, built in priority order under a performance budget):** the hero should feel alive and responsive, not a passive background. All subtle, GPU-cheap, and `prefers-reduced-motion` safe; all degrade gracefully to the plain looping video.
-1. **Cursor parallax** - canyon pans a few px toward the cursor for depth (Snowball pattern). Cheap, low-risk.
-2. **Light bloom near CTA** - warm first-light at the canyon end intensifies as the user nears "Start the conversation." Cheap, elegant narrative nudge.
-3. **Scroll-linked glide** - scrolling scrubs the clip so you travel deeper down the canyon as you read; copy/sections reveal on descent. The signature move.
-4. **Reactive mercury ripples** - cursor movement raises gentle ripples / reflection distortion on the surface (canvas/WebGL over video). Built last, behind a performance/mobile gate; dropped on mobile or low-end if it harms LCP or smoothness.
-Hard rule: the hero never stutters. Effects are additive and individually killable.
+**Interactivity - REVISED 2026-06-24: none.** The four-effect stack (parallax, bloom, scroll-glide, ripples) was built then removed: stacked together they overdid it and read as gimmickry, which undercuts a premium advisory. Decision: the footage carries the hero. No cursor-reactive effects, no scroll-scrub. The clip is slowed to a near-imperceptible drift (2.8x) and simply autoplays/loops. Only behaviour retained: fade the video in over its poster on `canplay`, and swap to the static poster under `prefers-reduced-motion`. Scroll-glide is the one effect worth reconsidering later if the hero ever needs more, but ship clean first.
 
 **Hero copy (working):** H1 "Every company has a first chapter. We help you write it." Sub: "Product and growth partners for the zero-to-one stretch." CTA: "Start the conversation" (free first session).
 
