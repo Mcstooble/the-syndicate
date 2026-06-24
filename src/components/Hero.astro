@@ -2,12 +2,10 @@
 import { site } from "../content/site.ts";
 ---
 <section id="hero" class="relative h-[100svh] w-full overflow-hidden bg-ink">
-  <img src="/hero/canyon-poster.jpg?v=4" alt="" aria-hidden="true"
-       class="absolute inset-0 h-full w-full scale-105 object-cover" />
-  <video class="absolute inset-0 h-full w-full scale-105 object-cover opacity-0 transition-opacity duration-700"
-         autoplay muted loop playsinline preload="auto" poster="/hero/canyon-poster.jpg?v=4" data-hero-video>
-    <source src="/hero/canyon.webm?v=4" type="video/webm" />
-    <source src="/hero/canyon.mp4?v=4" type="video/mp4" />
+  <video class="absolute inset-0 h-full w-full scale-105 object-cover"
+         autoplay muted loop playsinline preload="auto" poster="/hero/canyon-poster.jpg?v=5" data-hero-video>
+    <source src="/hero/canyon.webm?v=5" type="video/webm" />
+    <source src="/hero/canyon.mp4?v=5" type="video/mp4" />
   </video>
   <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(20,22,26,0.25) 0%, rgba(20,22,26,0.05) 45%, rgba(20,22,26,0.55) 100%);"></div>
   <div class="relative z-10 mx-auto flex h-full max-w-content flex-col justify-end px-6 pb-24 text-canvas">
@@ -18,7 +16,17 @@ import { site } from "../content/site.ts";
 </section>
 <script>
   const v = document.querySelector<HTMLVideoElement>("[data-hero-video]");
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (v && !reduce) v.addEventListener("canplay", () => { v.style.opacity = "1"; }, { once: true });
-  if (reduce && v) v.remove();
+  if (v) {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      // Reduced motion: show a static poster instead of the looping video.
+      const img = document.createElement("img");
+      img.src = "/hero/canyon-poster.jpg?v=5";
+      img.className = v.className;
+      img.setAttribute("aria-hidden", "true");
+      v.replaceWith(img);
+    } else {
+      // Nudge autoplay (some browsers need an explicit play() after hydration).
+      v.play?.().catch(() => {});
+    }
+  }
 </script>
