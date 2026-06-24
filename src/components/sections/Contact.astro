@@ -1,0 +1,32 @@
+---
+import { site } from "../../content/site.ts";
+const { contactEmail } = site;
+---
+<section id="contact" class="bg-ink px-6 py-32 text-canvas sm:py-44">
+  <div class="mx-auto max-w-content">
+    <div class="max-w-3xl" data-reveal>
+      <span class="eyebrow" style="color:var(--color-sky)">Start the conversation</span>
+      <h2 class="mt-6 text-4xl font-medium leading-[1.05] sm:text-6xl">
+        Tell us about your first chapter.
+      </h2>
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-sky">
+        Bring the messy version. The first session is free, and you leave with something useful either way.
+      </p>
+
+      <div class="mt-12 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
+        <a
+          href={`mailto:${contactEmail}`}
+          class="inline-flex rounded-full bg-canvas px-8 py-3.5 text-sm font-medium text-ink transition-transform hover:scale-[1.02]"
+        >
+          Start the conversation
+        </a>
+        <a
+          href={`mailto:${contactEmail}`}
+          class="text-base text-sky underline decoration-gold/60 decoration-1 underline-offset-4 transition-colors hover:text-canvas"
+        >
+          {contactEmail}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

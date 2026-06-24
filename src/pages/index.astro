@@ -2,10 +2,23 @@
 import Base from "../layouts/Base.astro";
 import Nav from "../components/Nav.astro";
 import Hero from "../components/Hero.astro";
+import About from "../components/sections/About.astro";
+import Services from "../components/sections/Services.astro";
+import Experience from "../components/sections/Experience.astro";
+import Partners from "../components/sections/Partners.astro";
+import Process from "../components/sections/Process.astro";
+import Contact from "../components/sections/Contact.astro";
 import { site } from "../content/site.ts";
 ---
 
 <Base title={site.name} description={site.tagline}>
   <Nav />
   <Hero />
+  <About />
+  <Services />
+  <Experience />
+  <Partners />
+  <Process />
+  <Contact />
+  <script src="../scripts/reveal.ts"></script>
 </Base>

@@ -25,5 +25,32 @@ export const site = {
     { step: "02", title: "Analysis", body: "We go deep on product, team, and data to find the constraint." },
     { step: "03", title: "Execution", body: "Strategy, coaching, or embedded leadership. We help you ship." },
   ],
+  about: {
+    eyebrow: "Who we are",
+    headline: "We don't give advice we haven't lived.",
+    body: [
+      "Prologue Partners is two operators, not a consultancy of theorists. Between us, 18+ years building and growing companies across fintech, ecommerce, and AI, with scar tissue from Web3 and logistics too, on three continents.",
+      "We partner with founders in the hardest, most decisive stretch: zero to one. The part where positioning, product, and the first real customers are still uncertain, and the decisions you make set the shape of everything after.",
+    ],
+  },
+  experience: {
+    eyebrow: "Track record",
+    headline: "Experience built at companies across fintech, ecommerce, and AI.",
+    note: "Named clients and outcomes are being cleared for public use. The work is real; the logos are coming.",
+  },
+  partners: [
+    {
+      name: "Wayne van Niekerk",
+      role: "Growth",
+      monogram: "WvN",
+      body: "Fractional head of growth. GTM, marketing, content, pricing, ecosystem and partnerships. Deep in fast-moving frontier markets where the playbook is still being written.",
+    },
+    {
+      name: "Josh Stubbs",
+      role: "Product",
+      monogram: "JS",
+      body: "Product strategy and delivery. Fintech and KYC/compliance depth. Building and leading teams from scratch, then handing them something that runs without him.",
+    },
+  ],
   contactEmail: "hello@prologue.partners",
 } as const;
