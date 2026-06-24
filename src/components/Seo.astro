@@ -7,8 +7,34 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
-const pageTitle = title ?? site.name;
-const metaDescription = description ?? site.tagline;
+const pageTitle = title ?? `${site.name} - ${site.tagline}`;
+const desc =
+  description ??
+  "Operators who take fintech and ecommerce companies from zero to one. Product strategy, growth and GTM, AI enablement, and fractional leadership.";
+
+// TODO: public/og.jpg social image is pending. Generate and add it before launch.
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: site.name,
+  url: site.domain,
+  email: site.contactEmail,
+  description: desc,
+  areaServed: "Worldwide",
+  serviceType: site.services.map((s) => s.title),
+  founder: [
+    { "@type": "Person", name: "Wayne van Niekerk", jobTitle: "Growth Partner" },
+    { "@type": "Person", name: "Josh Stubbs", jobTitle: "Product Partner" },
+  ],
+};
 ---
 <title>{pageTitle}</title>
-<meta name="description" content={metaDescription} />
+<meta name="description" content={desc} />
+<link rel="canonical" href={site.domain} />
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={desc} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={site.domain} />
+<meta property="og:image" content={`${site.domain}/og.jpg`} />
+<meta name="twitter:card" content="summary_large_image" />
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
