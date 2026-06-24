@@ -2,13 +2,8 @@
 import { site } from "../content/site.ts";
 ---
 <section id="hero" class="relative h-[100svh] w-full overflow-hidden bg-ink">
-  <img src="/hero/canyon-poster.jpg?v=2" alt="" aria-hidden="true"
-       class="absolute inset-0 h-full w-full scale-105 object-cover" />
-  <video class="absolute inset-0 h-full w-full scale-105 object-cover opacity-0 transition-opacity duration-700"
-         autoplay muted loop playsinline preload="auto" poster="/hero/canyon-poster.jpg?v=2" data-hero-video>
-    <source src="/hero/canyon.webm?v=2" type="video/webm" />
-    <source src="/hero/canyon.mp4?v=2" type="video/mp4" />
-  </video>
+  <div class="hero-still absolute inset-0 bg-cover bg-center"
+       style="background-image:url('/hero/canyon-still.jpg?v=1')"></div>
   <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(20,22,26,0.25) 0%, rgba(20,22,26,0.05) 45%, rgba(20,22,26,0.55) 100%);"></div>
   <div class="relative z-10 mx-auto flex h-full max-w-content flex-col justify-end px-6 pb-24 text-canvas">
     <h1 class="max-w-3xl text-4xl font-medium leading-[1.08] sm:text-6xl" style="text-shadow:0 2px 30px rgba(0,0,0,0.45)">{site.hero.h1}</h1>
@@ -16,10 +11,19 @@ import { site } from "../content/site.ts";
     <a href="#contact" class="mt-8 inline-flex w-fit rounded-full bg-canvas px-7 py-3 text-sm font-medium text-ink transition-transform hover:scale-[1.02]">{site.hero.cta}</a>
   </div>
 </section>
-<script>
-  // reveal the video over the poster once it can play; respect reduced motion
-  const v = document.querySelector<HTMLVideoElement>("[data-hero-video]");
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (v && !reduce) v.addEventListener("canplay", () => { v.style.opacity = "1"; }, { once: true });
-  if (reduce && v) v.remove();
-</script>
+<style>
+  /* "Living still": an almost-imperceptible 45s drift. GPU-interpolated, so it is
+     perfectly smooth at any slowness and can never warp like interpolated video. */
+  .hero-still {
+    transform: scale(1);
+    animation: heroDrift 45s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  @keyframes heroDrift {
+    from { transform: scale(1); }
+    to { transform: scale(1.06); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-still { animation: none; transform: scale(1.02); }
+  }
+</style>
